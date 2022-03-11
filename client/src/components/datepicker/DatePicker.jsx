@@ -16,6 +16,7 @@ class DatePicker extends React.Component {
     handleChange(event) {
         this.setState({ value: event.target.value });
         alert("A fost aleasa o data noua!");
+        //console.log(event.target.value);
         this.setState({ refresh: true });
     }
 
@@ -28,7 +29,7 @@ class DatePicker extends React.Component {
                         <div className="form-group">
                             <input className="form-control" type="date" id="data" onChange={this.handleChange}></input>
                             <br />
-                            <Link to="/table"><button type="submit" className="btn btn-warning" value={this.state.value} 
+                            <Link to="/table"><button type="submit" className="btn btn-warning" value={this.state.value}
                                 onSubmit={this.handleChange}>Submit</button></Link>
                         </div>
                     </div>
