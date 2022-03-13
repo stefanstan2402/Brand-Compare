@@ -5,11 +5,11 @@ class Tablerow extends React.Component {
     render() {
         return (
             <tr className="table-warning">
-                <td scope="col">{this.props.index}</td>
-                <td scope="col">{this.props.name}</td>
-                <td scope="col">{this.props.profiles}</td>
-                <td scope="col">{this.props.fans}</td>
-                <td scope="col">{this.props.engagement}</td>
+                <td>{this.props.index}</td>
+                <td>{this.props.name}</td>
+                <td>{this.props.profiles}</td>
+                <td>{this.props.fans}</td>
+                <td>{this.props.engagement}</td>
             </tr>
         )
     }

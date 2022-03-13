@@ -14,10 +14,16 @@ class DatePicker extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value });
-        alert("A fost aleasa o data noua!");
-        //console.log(event.target.value);
-        this.setState({ refresh: true });
+        if (event.target.value > new Date().toISOString().slice(0, 10)) {
+            alert("Realege o data valida!");
+        } else {
+            this.setState({
+                value: event.target.value,
+                refresh: true
+            });
+            alert("A fost aleasa o data noua!");
+            console.log(event.target.value);
+        }
     }
 
     render() {
