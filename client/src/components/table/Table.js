@@ -45,12 +45,14 @@ const Table = (props) => {
     useEffect(() => {
         brands.forEach(brand => {
             brand.profiles.forEach(profile => {
+                sum_fans = 0;
+                sum_engagement = 0;
                 let myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
                 myHeaders.append("Authorization", "Bearer API_KEY_TEST");
 
                 let reqOptions = {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: myHeaders,
                     body: JSON.stringify({
                         id: 1,
@@ -73,11 +75,11 @@ const Table = (props) => {
                     // .then(response => console.log(response))
                     .then(response => {
                         for (var key in response[profile.id]) {
+                            // console.log(response[profile.id])
                             let noFans = response[profile.id][key].fans;
                             let noEngagement = response[profile.id][key].engagement;
-
-                            
-
+                            // console.log(noFans)
+                            // console.log(noEngagement)
                             if (noFans != null) {
                                 sum_fans += noFans;
                             }
@@ -88,19 +90,20 @@ const Table = (props) => {
                         }
                         fans.push(sum_fans);
                         engagement.push(sum_engagement);
-                        //console.log(fans);
-                        if(fans.length === 12) {
+                        
+                        // console.log(fans)
+
+                        if ((fans.length === 12) && (engagement.length === 12)) {
                             setInfo(fans);
-                        }
-                        if(engagement.length === 12) {
                             setEng(engagement);
                         }
-                    });
+                    })
+                    // console.log(fans);
             });
         })
     }, [brands]);
 
-console.log(info);
+    // console.log(info);
 
     return (
         <div>
@@ -116,13 +119,23 @@ console.log(info);
                 </thead>
                 <tbody>
                     {brands.map((value, index) => {
-                        return <Tablerow
+                        if (index === 0) {
+                            return <Tablerow
+                                index={index + 1}
+                                name={value.brandname}
+                                profiles={value.profiles.length}
+                                fans={info[3 * index + 2]}
+                                engagement={eng[3 * index + 2]}
+                            />;
+                        } else {
+                            return <Tablerow
                             index={index + 1}
                             name={value.brandname}
                             profiles={value.profiles.length}
-                            fans={info[3 * index + 2]}
-                            engagement={eng[3 * index + 2]}
+                            fans={info[3 * index + 2] - info[3 * index - 1]}
+                            engagement={eng[3 * index + 2] - eng[3 * index - 1]}
                         />;
+                        }
                     })}
                 </tbody>
             </table>

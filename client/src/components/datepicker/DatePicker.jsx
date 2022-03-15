@@ -13,6 +13,10 @@ class DatePicker extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    refreshPage = () => {
+        window.location.reload();
+    }
+
     handleChange(event) {
         if (event.target.value > new Date().toISOString().slice(0, 10)) {
             alert("Realege o data valida!");
@@ -43,10 +47,13 @@ class DatePicker extends React.Component {
                 </div>
                 <br />
                 <br />
-
                 <Switch>
                     <Route path="/table">
+                        <h3 className="center">A fost aleasa data de : {this.state.value}</h3>
+                        <br />
                         <Table date={this.state.value} />
+                        <br />
+                        <Link to=""><button type="submit" className="btn btn-warning" onClick={this.refreshPage}>Go back!</button></Link>
                     </Route>
                 </Switch>
             </Router>
