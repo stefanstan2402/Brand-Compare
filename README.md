@@ -18,5 +18,5 @@ A webpage will open on your computer. Choose a valid date and information will b
 
 Technologies used:
 
-    -> frontend: ReactJS
-    -> backend: NodeJS
+    frontend: ReactJS
+    backend: NodeJS
