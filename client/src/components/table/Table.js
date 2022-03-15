@@ -5,6 +5,8 @@ import Tablerow from '../tablerow/Tablerow';
 const Table = (props) => {
 
     const [brands, setBrands] = useState([]);
+    const [info, setInfo] = useState([]);
+    const [eng, setEng] = useState([]);
 
     let data = props.date;
     let dataMS = new Date(data).getTime();
@@ -48,7 +50,7 @@ const Table = (props) => {
                 myHeaders.append("Authorization", "Bearer API_KEY_TEST");
 
                 let reqOptions = {
-                    method: 'POST',
+                    method: 'POST', 
                     headers: myHeaders,
                     body: JSON.stringify({
                         id: 1,
@@ -74,25 +76,31 @@ const Table = (props) => {
                             let noFans = response[profile.id][key].fans;
                             let noEngagement = response[profile.id][key].engagement;
 
-                            // console.log(noFans);
-                            // console.log(" ");
-                            // console.log(noEngagement);
+                            
 
                             if (noFans != null) {
                                 sum_fans += noFans;
                             }
 
-                            if (noEngagement != null){
+                            if (noEngagement != null) {
                                 sum_engagement += noEngagement;
                             }
                         }
+                        fans.push(sum_fans);
+                        engagement.push(sum_engagement);
+                        //console.log(fans);
+                        if(fans.length === 12) {
+                            setInfo(fans);
+                        }
+                        if(engagement.length === 12) {
+                            setEng(engagement);
+                        }
                     });
             });
-            fans.push(sum_fans);
-            engagement.push(sum_engagement);
         })
-        console.log(fans);
-    });
+    }, [brands]);
+
+console.log(info);
 
     return (
         <div>
@@ -112,8 +120,8 @@ const Table = (props) => {
                             index={index + 1}
                             name={value.brandname}
                             profiles={value.profiles.length}
-                            fans={fans[index]}
-                            engagement={engagement[index]}
+                            fans={info[3 * index + 2]}
+                            engagement={eng[3 * index + 2]}
                         />;
                     })}
                 </tbody>
